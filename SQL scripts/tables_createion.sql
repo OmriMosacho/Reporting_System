@@ -27,7 +27,7 @@ CREATE TABLE currency_rates (
 
 
 CREATE TABLE customer_holdings (
-    CustomerID   VARCHAR(10) REFERENCES customers(CustomerID),
+    CustomerID   VARCHAR(10) NOT NULL,
     Ticker       VARCHAR(10) NOT NULL,
     Quantity     INTEGER NOT NULL,
     AsOfDate     DATE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE stock_prices (
 
 
 CREATE TABLE companies (
-    Ticker        VARCHAR(10) PRIMARY KEY,
+    Ticker        VARCHAR(10),
     CompanyName   TEXT NOT NULL,
     Exchange      VARCHAR(10),
     Currency      CHAR(3),
@@ -53,9 +53,9 @@ CREATE TABLE companies (
 );
 
 CREATE TABLE trades (
-    Customer_ID     VARCHAR(10) REFERENCES customers(CustomerID),
+    Customer_ID     VARCHAR(10) NOT NULL,
     TradeDate       DATE NOT NULL,
-    Ticker          VARCHAR(10) REFERENCES companies(Ticker),
+    Ticker          VARCHAR(10) NOT NULL,
     Side            VARCHAR(4) CHECK (Side IN ('BUY', 'SELL')),
     Quantity        INTEGER NOT NULL,
     Px              NUMERIC(12,2) NOT NULL,
@@ -64,3 +64,12 @@ CREATE TABLE trades (
     PRIMARY KEY (Customer_ID, TradeDate, Ticker, Side)
 );
 
+
+CREATE TABLE users (
+  userid SERIAL PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  email VARCHAR(150) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(50) DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
