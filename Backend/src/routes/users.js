@@ -19,7 +19,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 module.exports = (app, conn) => {
   /**
    * @function POST /api/users
-   * @description Inserts a new user record with a hashed password.
+   * @description In use in the register option to record a new user.
+   * Inserts a new user record with a hashed password.
    */
   app.post('/api/users', async (req, res, next) => {
     const { username, email, password, role = 'user' } = req.body;
@@ -55,6 +56,7 @@ module.exports = (app, conn) => {
   /**
    * @function POST /api/login
    * @description Authenticates a user and returns a JWT token.
+   * In use in the login option to authenticate existing users.
    */
   app.post('/api/login', (req, res, next) => {
     const { email, password } = req.body;
@@ -93,7 +95,7 @@ module.exports = (app, conn) => {
 
   /**
    * @function GET /api/users
-   * @description Retrieves all users (admin only, protected).
+   * @description Retrieves all users, Currently not in use.
    */
   app.get('/api/users', authenticateToken, (req, res, next) => {
 
@@ -111,7 +113,7 @@ module.exports = (app, conn) => {
 
   /**
    * @function PUT /api/users/:id
-   * @description Updates user details (protected route, admin or self).
+   * @description Updates user details, Currently not in use.
    */
   app.put('/api/users/:id', authenticateToken, (req, res, next) => {
     const { id } = req.params;
@@ -147,7 +149,7 @@ module.exports = (app, conn) => {
 
   /**
    * @function DELETE /api/users/:id
-   * @description Deletes a user record by ID (admin only).
+   * @description Deletes a user record by ID, Currently not in use.
    */
   app.delete('/api/users/:id', authenticateToken, (req, res, next) => {
     const { id } = req.params;

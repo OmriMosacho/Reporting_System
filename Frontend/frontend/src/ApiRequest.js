@@ -7,7 +7,6 @@ import axios from "axios";
  * Centralized API handler for all HTTP requests.
  * Automatically includes JWT token (if available in localStorage)
  * in the Authorization header for secure endpoints.
- * Includes robust guards for Jest testing environments.
  */
 
 /** Base URL for API requests */
@@ -29,45 +28,37 @@ try {
 }
 
 /**
- * Attach Authorization header if token exists (skip during Jest tests)
+ * @function requestInterceptor
+ * @description
+ * Attaches JWT token to the Authorization header for every outgoing request.
  */
-const isTestEnv = typeof jest !== "undefined";
-if (!isTestEnv && apiClient?.interceptors?.request) {
-  apiClient.interceptors.request.use(
-    (config) => {
-      try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          config.headers = config.headers || {};
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-      } catch (e) {
-        console.warn("Could not attach token:", e);
-      }
-      return config;
-    },
-    (error) => Promise.reject(error)
-  );
-}
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 /**
- * Global response interceptor
- * Handles unauthorized (401) responses.
+ * @function responseInterceptor
+ * @description
+ * Handles unauthorized (401) responses globally and logs out user if needed.
  */
-if (apiClient?.interceptors?.response) {
-  apiClient.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error?.response?.status === 401) {
-        console.warn("Unauthorized — token may be missing or expired.");
-        // Optionally handle logout logic here:
-        // localStorage.removeItem("token");
-        // window.location.href = "/";
-      }
-      return Promise.reject(error);
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.warn("Unauthorized — token may be missing or expired.");
+      // Optionally, clear storage, disabled.
+      // localStorage.removeItem("token");
     }
-  );
-}
+    return Promise.reject(error);
+  }
+);
 
 /**
  * Unified API request wrapper with safe fallbacks.
@@ -80,9 +71,8 @@ export const api = {
    * @returns {Promise<any>} Response data
    */
   get: async (endpoint, params = {}) => {
-    if (!apiClient?.get) throw new Error("API client not initialized");
     const response = await apiClient.get(endpoint, { params });
-    return response?.data || response;
+    return response.data;
   },
 
   /**
@@ -92,9 +82,8 @@ export const api = {
    * @returns {Promise<any>} Response data
    */
   post: async (endpoint, body = {}) => {
-    if (!apiClient?.post) throw new Error("API client not initialized");
     const response = await apiClient.post(endpoint, body);
-    return response?.data || response;
+    return response.data;
   },
 
   /**
@@ -104,9 +93,8 @@ export const api = {
    * @returns {Promise<any>} Response data
    */
   put: async (endpoint, body = {}) => {
-    if (!apiClient?.put) throw new Error("API client not initialized");
     const response = await apiClient.put(endpoint, body);
-    return response?.data || response;
+    return response.data;
   },
 
   /**
@@ -116,9 +104,8 @@ export const api = {
    * @returns {Promise<any>} Response data
    */
   delete: async (endpoint, params = {}) => {
-    if (!apiClient?.delete) throw new Error("API client not initialized");
     const response = await apiClient.delete(endpoint, { params });
-    return response?.data || response;
+    return response.data;
   },
 };
 

@@ -9,7 +9,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '../../ApiRequest';
-import './Table.css';
+import '../designs/Table.css';
 
 /**
  * @function DataTable

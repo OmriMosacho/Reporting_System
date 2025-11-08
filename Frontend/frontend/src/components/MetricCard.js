@@ -1,4 +1,4 @@
-import './MetricCard.css';
+import './designs/MetricCard.css';
 
 export default function MetricCard({ title, value, color }) {
   return (

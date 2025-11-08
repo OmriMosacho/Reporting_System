@@ -1,5 +1,5 @@
 // src/components/Navbar.js
-import './Navbar.css';
+import './designs/Navbar.css';
 
 export default function Navbar({ activeTab, setActiveTab, onLogout }) {
   return (

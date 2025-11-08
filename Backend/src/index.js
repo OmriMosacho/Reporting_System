@@ -10,7 +10,6 @@
 const express = require('express');
 const cors = require('cors');
 const { conn } = require('./db/connection.js');
-const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
 /**
@@ -46,7 +45,6 @@ app.use(cors());
  * them available under `req.body`.
  */
 app.use(express.json());
-app.use(bodyParser.json());
 
 /**
  * @function registerRoutes

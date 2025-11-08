@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '../ApiRequest';
-import './LoginForm.css';
+import './designs/LoginForm.css';
 
 export default function LoginForm({ setToken }) {
   const [isRegistering, setIsRegistering] = useState(false);

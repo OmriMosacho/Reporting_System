@@ -10,7 +10,7 @@
 import { useState } from 'react';
 import Navbar from './Navbar';
 import DataTable from './tables/DataTable';
-import './Dashboard.css';
+import './designs/Dashboard.css';
 
 export default function Dashboard({ token, setToken }) {
   const [activeTab, setActiveTab] = useState('customers');
