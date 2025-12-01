@@ -1,6 +1,6 @@
-# IBI Reporting System
+# Reporting System
 
-This project holds the Backend, Frontend and a Database instance of the IBI reporting system.
+This project holds the Backend, Frontend, and a Database instance of the IBI reporting system.
 
 ## The System Design Document
     https://docs.google.com/document/d/1unCIzitnXD2iHZKchlufV95i2WZXiNRTxoyh7SUWYiw/edit?usp=sharing
