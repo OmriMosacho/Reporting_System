@@ -11,21 +11,30 @@ import axios from "axios";
 
 /** Base URL for API requests */
 const API_BASE_URL = "http://localhost:4000/api";
+const API_DATA_WHISPERER = "http://localhost:8000/ask"
 
 /**
  * Safely create an Axios instance.
  * If axios.create fails (like in mocked environments), fall back to a stub.
  */
 let apiClient;
+let apiAIAgent;
 try {
   apiClient = axios.create({
     baseURL: API_BASE_URL,
     headers: { "Content-Type": "application/json" },
   });
+apiAIAgent = axios.create({
+    baseURL: API_DATA_WHISPERER,
+    headers: { "Content-Type": "application/json" },
+  });
+
 } catch (error) {
   console.warn("Axios instance could not be created:", error);
   apiClient = {}; // fallback for test/mocked environments
 }
+
+
 
 /**
  * @function requestInterceptor
@@ -42,6 +51,7 @@ apiClient.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
 
 /**
  * @function responseInterceptor
@@ -81,8 +91,14 @@ export const api = {
    * @param {Object} [body] - Request body
    * @returns {Promise<any>} Response data
    */
-  post: async (endpoint, body = {}) => {
-    const response = await apiClient.post(endpoint, body);
+  post: async (endpoint, body, ai = {}) => {
+    let response;
+    if (ai !== "AI"){
+      response = await apiClient.post(endpoint, body);
+    }else {
+      response = await apiAIAgent.post(endpoint, body);
+    }
+    
     return response.data;
   },
 

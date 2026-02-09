@@ -1,0 +1,95 @@
+.login-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 6rem auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.analysis-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.password-wrapper input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.show-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.show-password-btn:hover {
+  opacity: 1;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: #4a6ef5;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #3c5ce5;
+}
+
+.error-text {
+  color: red;
+  margin-top: 1rem;
+}
+
+.toggle-text {
+  margin-top: 1rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #4a6ef5;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.password-match-text {
+  font-size: 0.85rem;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.password-match-text.match {
+  color: #2e7d32; /* Green */
+}
+
+.password-match-text.mismatch {
+  color: #d32f2f; /* Red */
+}

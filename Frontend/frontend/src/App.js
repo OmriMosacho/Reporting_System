@@ -2,6 +2,7 @@ import { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import AnalyticsDashboard from './pages/AnalyticsDashboard';
+import AIDashboard from './pages/AIDashboard';
 import './App.css';
 
 function App() {
@@ -28,6 +29,12 @@ function App() {
           Analytics Dashboard
         </button>
         <button
+          className={view === 'ai' ? 'active' : ''}
+          onClick={() => setView('ai')}
+        >
+          AI Analysis
+        </button>
+        <button
           onClick={() => {
             localStorage.removeItem('token');
             setToken(null);
@@ -39,6 +46,7 @@ function App() {
 
       {view === 'dashboard' && <Dashboard token={token} setToken={setToken} />}
       {view === 'analytics' && <AnalyticsDashboard />}
+      {view === 'ai' && <AIDashboard />}
     </div>
   );
 }
